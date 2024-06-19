@@ -40,7 +40,7 @@ public class TypeQueryProjection {
     @QueryHandler
     public TypeResponseModel getByTypeId(GetByTypeId typeId) {
 
-        Types types = typeRepository.findById(typeId.getTypeId()).get();
+        Types types = typeRepository.findById(typeId.getTypeId()).orElse(new Types());
         TypeResponseModel typeResponseModel = new TypeResponseModel();
         if(StringUtils.isEmpty(types.getTypeId())) {
             typeResponseModel.initialize();

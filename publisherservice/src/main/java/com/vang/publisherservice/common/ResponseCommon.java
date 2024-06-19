@@ -1,4 +1,4 @@
-package com.vang.typeservice.common;
+package com.vang.publisherservice.common;
 
 import lombok.Builder;
 import lombok.Data;
