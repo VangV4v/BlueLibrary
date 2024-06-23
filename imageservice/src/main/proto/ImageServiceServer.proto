@@ -1,0 +1,30 @@
+syntax = "proto3";
+option java_package = "com.vang.imageservice.grpc.gen";
+option java_multiple_files = true;
+option java_outer_classname = "ImageGrpcServer";
+
+service UploadImage {
+  rpc upload(UploadImageRequest) returns (UploadImageReply);
+}
+
+service DeleteImage {
+  rpc delete(DeleteImageRequest) returns (DeleteImageReply);
+}
+
+message UploadImageRequest {
+  int32 type = 1;
+  bytes image = 2;
+}
+
+message UploadImageReply {
+  bool status = 1;
+  string url = 2;
+}
+
+message DeleteImageRequest {
+  string imageName = 1;
+}
+
+message DeleteImageReply {
+  bool status = 1;
+}

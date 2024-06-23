@@ -34,7 +34,7 @@ public class AuthorCommandServiceImpl implements AuthorCommandService {
         command.setGenerateAggregateId(System.currentTimeMillis() + new Random().nextInt(100, 1000));
         command.setCountOfBook(ServiceCommon.ZERO);
         commandGateway.sendAndWait(command);
-        ResponseCommon response = ResponseCommon.builder().error(false).message("Add Author Successful").build();
+        ResponseCommon response = ResponseCommon.builder().error(false).message(ServiceCommon.ADD_AUTHOR_SUCCESS).build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -45,7 +45,7 @@ public class AuthorCommandServiceImpl implements AuthorCommandService {
         BeanUtils.copyProperties(requestModel, command);
         command.setGenerateAggregateId(System.currentTimeMillis() + new Random().nextInt(100, 1000));
         commandGateway.sendAndWait(command);
-        ResponseCommon response = ResponseCommon.builder().error(false).message("Update Author Successful").build();
+        ResponseCommon response = ResponseCommon.builder().error(false).message(ServiceCommon.UPDATE_AUTHOR_SUCCESS).build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -56,7 +56,7 @@ public class AuthorCommandServiceImpl implements AuthorCommandService {
         BeanUtils.copyProperties(requestModel, command);
         command.setGenerateAggregateId(System.currentTimeMillis() + new Random().nextInt(100, 1000));
         commandGateway.sendAndWait(command);
-        ResponseCommon response = ResponseCommon.builder().error(false).message("Delete Author Successful").build();
+        ResponseCommon response = ResponseCommon.builder().error(false).message(ServiceCommon.DELETE_AUTHOR_SUCCESS).build();
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
