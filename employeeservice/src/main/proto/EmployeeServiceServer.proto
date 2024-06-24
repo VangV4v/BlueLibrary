@@ -1,0 +1,18 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_outer_classname = "EmployeeServerGrpc";
+option java_package = "com.vang.employeeservice.grpc.gen";
+package  com.vang;
+
+service AuthenticateEmployee {
+  rpc authenticate(AuthenticateEmployeeRequest) returns (AuthenticateEmployeeReply);
+}
+
+message AuthenticateEmployeeRequest {
+  string username = 1;
+}
+
+message AuthenticateEmployeeReply {
+  string password = 1;
+  bool status = 2;
+}

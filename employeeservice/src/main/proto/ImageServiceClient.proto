@@ -2,6 +2,7 @@ syntax = "proto3";
 option java_package = "com.vang.employeeservice.grpc.gen";
 option java_multiple_files = true;
 option java_outer_classname = "ImageGrpcClient";
+package com.vang;
 
 service UploadImage {
   rpc upload(UploadImageRequest) returns (UploadImageReply);
