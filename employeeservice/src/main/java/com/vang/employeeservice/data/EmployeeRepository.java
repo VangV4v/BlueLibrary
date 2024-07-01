@@ -23,6 +23,6 @@ public interface EmployeeRepository extends JpaRepository<Employees, String> {
     @Query(value = "select top 1 empl.employeeId from Employees empl order by empl.employeeId desc ", nativeQuery = true)
     String getLatestEmployeeId();
 
-    @Query(value = "select empl.Password from Employees empl where empl.Username = ?1 and empl.ActiveStatus = 1", nativeQuery = true)
+    @Query(value = "select empl.Password from Employees empl where ( empl.Username = ?1 or empl.Email = ?1 or empl.Phone = ?1) and empl.ActiveStatus = 1", nativeQuery = true)
     String getPasswordByUsername(String username);
 }

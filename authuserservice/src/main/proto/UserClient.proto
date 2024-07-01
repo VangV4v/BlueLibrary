@@ -1,0 +1,18 @@
+syntax = "proto3";
+package com.vang;
+option java_package = "com.vang.authuserservice.grpc.gen";
+option java_multiple_files = true;
+option java_outer_classname = "UserGrpcClient";
+
+service AuthenticateUser {
+  rpc login(AuthenticateUserRequest) returns (AuthenticateUserReply);
+}
+
+message AuthenticateUserRequest {
+  string username = 1;
+}
+
+message AuthenticateUserReply {
+  bool status = 1;
+  string password = 2;
+}
