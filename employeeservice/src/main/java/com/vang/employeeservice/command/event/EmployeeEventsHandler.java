@@ -51,7 +51,7 @@ public class EmployeeEventsHandler {
         if(!ObjectUtils.isEmpty(event.getImage())) {
 
             try {
-                String oldImage = employees.getAvatar();
+                String oldImage = event.getAvatar();
                 String url = imageServiceGrpcClient.uploadImage(event.getImage(), 1);
                 employees.setAvatar(url);
                 employeeRepository.save(employees);

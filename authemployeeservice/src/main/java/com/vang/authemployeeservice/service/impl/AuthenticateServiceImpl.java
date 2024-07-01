@@ -42,9 +42,9 @@ public class AuthenticateServiceImpl implements AuthenticateService {
                 return new ResponseEntity<>(token, HttpStatus.OK);
             }
         } catch (BadCredentialsException badCredentialsException) {
-            return new ResponseEntity<>("Login Fail", HttpStatus.OK);
+            return new ResponseEntity<>("Login Fail", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Login Fail", HttpStatus.OK);
+        return new ResponseEntity<>("Login Fail", HttpStatus.BAD_REQUEST);
     }
 
 }

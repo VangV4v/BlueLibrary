@@ -18,12 +18,16 @@ public class Books {
     private String name;
     @Column(name = "AuthorId")
     private String authorId;
-    @Column(name = "AuthorDetail")
+    @Column(name = "AuthorDetail", length = 2000)
     private String authorDetail;
     @Column(name = "TypeId")
     private String typeId;
-    @Column(name = "TypeDetail")
+    @Column(name = "TypeDetail", length = 2000)
     private String typeDetail;
+    @Column(name = "PublisherId")
+    private String publisherId;
+    @Column(name = "PublisherDetail", length = 2000)
+    private String publisherDetail;
     @Column(name = "Description")
     private String description;
     @Column(name = "Image")

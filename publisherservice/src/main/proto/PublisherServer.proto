@@ -1,0 +1,18 @@
+syntax = "proto3";
+option java_package = "com.vang.publisherservice.grpc.gen";
+option java_outer_classname = "PublisherGrpcServer";
+option java_multiple_files = true;
+package com.vang;
+
+service GetPublisherById {
+  rpc getData(GetPublisherByIdRequest) returns (GetPublisherByIdReply);
+}
+
+message GetPublisherByIdRequest {
+  string publisherId = 1;
+}
+
+message GetPublisherByIdReply {
+  bool status = 1;
+  string responseJson = 2;
+}

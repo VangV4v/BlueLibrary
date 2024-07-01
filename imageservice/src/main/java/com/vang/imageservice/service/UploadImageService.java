@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.InputStream;
 import java.util.Random;
 
@@ -37,6 +36,10 @@ public class UploadImageService {
 
         if(type == 1) {
             return "employees";
+        } else if(type == 2) {
+            return "books";
+        } else if(type == 3) {
+            return "users";
         }
         return "";
     }

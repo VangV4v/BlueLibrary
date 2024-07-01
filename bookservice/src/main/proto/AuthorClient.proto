@@ -1,0 +1,18 @@
+syntax = "proto3";
+option java_package = "com.vang.bookservice.grpc.gen";
+option java_outer_classname = "AuthorGrpcClient";
+option java_multiple_files = true;
+package com.vang;
+
+service GetAuthorById {
+  rpc getData(GetAuthorByIdRequest) returns (GetAuthorByIdReply);
+}
+
+message GetAuthorByIdRequest {
+  string authorId = 1;
+}
+
+message GetAuthorByIdReply {
+  bool status = 1;
+  string responseJson = 2;
+}

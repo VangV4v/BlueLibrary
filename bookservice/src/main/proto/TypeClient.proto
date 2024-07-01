@@ -1,0 +1,18 @@
+syntax = "proto3";
+option java_package = "com.vang.bookservice.grpc.gen";
+option java_outer_classname = "TypeGrpcClient";
+option java_multiple_files = true;
+package com.vang;
+
+service GetTypeById {
+  rpc getData(GetTypeByIdRequest) returns (GetTypeByIdReply);
+}
+
+message GetTypeByIdRequest {
+  string typeId = 1;
+}
+
+message GetTypeByIdReply {
+  bool status = 1;
+  string responseJson = 2;
+}

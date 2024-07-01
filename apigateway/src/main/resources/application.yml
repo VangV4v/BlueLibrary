@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    gateway:
+      mvc:
+        routes:
+          #Authenticate Service
+          - id: AuthEmployeeService
+            uri: http://192.168.160.1:8001
+            predicates:
+              - Path=/api/v1/auth/employee/
+          #Service
+          - id: TypeService
+            uri: http://192.168.160.1:9001
+            predicates:
+              - Path=/api/v1/types/
+          - id: PublisherService
+            uri: http://192.168.160.1:9002
+            predicates:
+              - Path=/api/v1/publishers/
+          - id: AuthorService
+            uri: http://192.168.160.1:9003
+            predicates:
+              - Path=/api/v1/authors/
+          - id: EmployeeService
+            uri: http://192.168.160.1:9004
+            predicates:
+              - Path=/api/v1/employees/
+
