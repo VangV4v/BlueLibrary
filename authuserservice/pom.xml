@@ -73,18 +73,17 @@
 		<dependency>
 			<groupId>io.grpc</groupId>
 			<artifactId>grpc-netty-shaded</artifactId>
-			<version>1.62.2</version>
-			<scope>runtime</scope>
+			<version>1.65.0</version>
 		</dependency>
 		<dependency>
 			<groupId>io.grpc</groupId>
 			<artifactId>grpc-protobuf</artifactId>
-			<version>1.62.2</version>
+			<version>1.65.0</version>
 		</dependency>
 		<dependency>
 			<groupId>io.grpc</groupId>
 			<artifactId>grpc-stub</artifactId>
-			<version>1.62.2</version>
+			<version>1.65.0</version>
 		</dependency>
 		<!-- Support Grpc -->
 		<dependency>
@@ -101,8 +100,18 @@
 		</dependency>
 		<dependency>
 			<groupId>net.devh</groupId>
-			<artifactId>grpc-spring-boot-starter</artifactId>
-			<version>3.0.0.RELEASE</version>
+			<artifactId>grpc-client-spring-boot-starter</artifactId>
+			<version>3.1.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>net.devh</groupId>
+			<artifactId>grpc-server-spring-boot-starter</artifactId>
+			<version>3.1.0.RELEASE</version>
+		</dependency>
+		<!-- Redis -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 
 		<dependency>

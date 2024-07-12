@@ -1,5 +1,6 @@
 package com.vang.authemployeeservice.controller;
 
+import com.vang.authemployeeservice.common.AuthenticateResponseCommon;
 import com.vang.authemployeeservice.model.AuthRequestModel;
 import com.vang.authemployeeservice.service.AuthenticateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class AuthenticateController {
     }
 
     @PostMapping
-    public ResponseEntity<String> authenticate(@RequestBody AuthRequestModel requestModel) {
+    public ResponseEntity<AuthenticateResponseCommon> authenticate(@RequestBody AuthRequestModel requestModel) {
 
         return authenticateService.authenticate(requestModel);
     }

@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfiguration {
 
     private static final String IP = "192.168.160.1";
-    private static final int PORT = 6006;
+    private static final int PORT = 6007;
 
     @Bean
     public AuthenticateUserGrpc.AuthenticateUserBlockingStub authenticateUserBlockingStub() {

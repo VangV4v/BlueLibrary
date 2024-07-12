@@ -8,6 +8,14 @@ spring:
             uri: http://192.168.160.1:8001
             predicates:
               - Path=/api/v1/auth/employee/
+          - id: AuthUserService
+            uri: http://192.168.160.1:8002
+            predicates:
+              - Path=/api/v1/auth/user/
+          - id: AuthAdminService
+            uri: http://192.168.160.1:8003
+            predicates:
+              - Path=/api/v1/auth/admin/
           #Service
           - id: TypeService
             uri: http://192.168.160.1:9001
@@ -25,4 +33,15 @@ spring:
             uri: http://192.168.160.1:9004
             predicates:
               - Path=/api/v1/employees/
-
+          - id: BookService
+            uri: http://192.168.160.1:9006
+            predicates:
+              - Path=/api/v1/books/
+          - id: UserService
+            uri: http://192.168.160.1:9007
+            predicates:
+              - Path=/api/v1/users/
+          - id: AdminService
+            uri: http://192.168.160.1:9008
+            predicates:
+              - Path=/api/v1/admins/

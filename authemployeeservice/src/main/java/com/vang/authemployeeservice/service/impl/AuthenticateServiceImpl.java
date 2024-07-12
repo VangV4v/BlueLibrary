@@ -1,5 +1,7 @@
 package com.vang.authemployeeservice.service.impl;
 
+import com.vang.authemployeeservice.common.AuthenticateResponseCommon;
+import com.vang.authemployeeservice.common.ServiceCommon;
 import com.vang.authemployeeservice.jwt.JwtService;
 import com.vang.authemployeeservice.model.AuthRequestModel;
 import com.vang.authemployeeservice.service.AuthenticateService;
@@ -28,23 +30,26 @@ public class AuthenticateServiceImpl implements AuthenticateService {
     }
 
     @Override
-    public ResponseEntity<String> authenticate(AuthRequestModel requestModel) {
+    public ResponseEntity<AuthenticateResponseCommon> authenticate(AuthRequestModel requestModel) {
 
+        AuthenticateResponseCommon response;
         try {
-
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestModel.getUsername(), requestModel.getPassword()));
             if(authentication.isAuthenticated()) {
-                redisTemplate.opsForValue().set("usernameOfEmployee", requestModel.getUsername());
-                redisTemplate.opsForValue().set("usernameOfEmployeeExpiration", System.currentTimeMillis()+(1000 * 60 * 20)+"");
+
+                redisTemplate.opsForValue().set(ServiceCommon.REDIS_KEY_USERNAME, requestModel.getUsername());
+                redisTemplate.opsForValue().set(ServiceCommon.REDIS_KEY_USERNAME_EXPIRATION, System.currentTimeMillis()+(1000 * 60 * 20)+"");
                 String token = jwtService.generateToken(requestModel.getUsername());
-                System.out.println(redisTemplate.opsForValue().get("usernameOfEmployee"));
-                System.out.println(redisTemplate.opsForValue().get("usernameOfEmployeeExpiration"));
-                return new ResponseEntity<>(token, HttpStatus.OK);
+                response = AuthenticateResponseCommon.builder().isAuthenticated(true).role(ServiceCommon.ROLE_EMPLOYEE).expiration(System.currentTimeMillis()+(1000 * 60 * 20)+"").jwt(token).build();
+                return new ResponseEntity<>(response, HttpStatus.OK);
             }
         } catch (BadCredentialsException badCredentialsException) {
-            return new ResponseEntity<>("Login Fail", HttpStatus.BAD_REQUEST);
+
+            response = AuthenticateResponseCommon.builder().build();
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>("Login Fail", HttpStatus.BAD_REQUEST);
+        response = AuthenticateResponseCommon.builder().build();
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
 }
