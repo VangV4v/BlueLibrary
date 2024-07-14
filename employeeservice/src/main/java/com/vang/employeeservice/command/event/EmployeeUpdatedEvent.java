@@ -20,4 +20,5 @@ public class EmployeeUpdatedEvent {
     private String avatar;
     private int activeStatus;
     private byte[] image;
+    private String imageName;
 }

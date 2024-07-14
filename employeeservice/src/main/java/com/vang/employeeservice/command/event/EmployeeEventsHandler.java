@@ -52,7 +52,7 @@ public class EmployeeEventsHandler {
 
             try {
                 String oldImage = event.getAvatar();
-                String url = imageServiceGrpcClient.uploadImage(event.getImage(), 1);
+                String url = imageServiceGrpcClient.uploadImage(event.getImage(), 1, event.getImageName());
                 employees.setAvatar(url);
                 employeeRepository.save(employees);
                 if(!StringUtils.isEmpty(oldImage) && !oldImage.equals(ServiceCommon.DEFAULT_IMAGE)) {

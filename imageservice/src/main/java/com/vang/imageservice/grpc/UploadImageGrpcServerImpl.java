@@ -23,7 +23,7 @@ public class UploadImageGrpcServerImpl extends UploadImageGrpc.UploadImageImplBa
     public void upload(UploadImageRequest request, StreamObserver<UploadImageReply> responseObserver) {
 
         UploadImageReply reply;
-        String url = uploadImageService.uploadImage(request.toByteArray(), request.getType());
+        String url = uploadImageService.uploadImage(request);
         if(StringUtils.isEmpty(url)) {
 
             reply = UploadImageReply.newBuilder().setStatus(false).build();

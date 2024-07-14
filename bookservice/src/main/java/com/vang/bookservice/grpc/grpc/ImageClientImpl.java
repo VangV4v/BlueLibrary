@@ -2,8 +2,14 @@ package com.vang.bookservice.grpc.grpc;
 
 import com.google.protobuf.ByteString;
 import com.vang.bookservice.grpc.gen.*;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 
 @Service
 public class ImageClientImpl {
@@ -17,10 +23,19 @@ public class ImageClientImpl {
         this.deleteImageBlockingStub = deleteImageBlockingStub;
     }
 
-    public String uploadImage(byte[] image) {
+    @SneakyThrows
+    public String uploadImage(byte[] image, String name) {
 
+        try {
+
+            BufferedImage bfi = ImageIO.read(new ByteArrayInputStream(image));
+            File file = new File("Q:"+File.separator+"Image"+File.separator+"client.jpg");
+            ImageIO.write(bfi, "jpg", file);
+        } catch (Exception ioe) {
+            System.out.println(ioe);
+        }
         ByteString bytes = ByteString.copyFrom(image);
-        UploadImageReply reply = uploadImageBlockingStub.upload(UploadImageRequest.newBuilder().setType(2).setImage(bytes).build());
+        UploadImageReply reply = uploadImageBlockingStub.upload(UploadImageRequest.newBuilder().setType(2).setName(name).setImage(bytes).build());
         return reply.getUrl();
     }
 

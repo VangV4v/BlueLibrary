@@ -20,6 +20,7 @@ public class UserResponseModel implements Serializable {
     private String lastModified;
     private String role;
     private String avatar;
+    private int countOfExpired;
     private int activeStatus;
 
     public void initialize() {
@@ -37,6 +38,7 @@ public class UserResponseModel implements Serializable {
         this.lastModified = null;
         this.role = null;
         this.avatar = null;
+        this.countOfExpired = 0;
         this.activeStatus = 0;
     }
 }

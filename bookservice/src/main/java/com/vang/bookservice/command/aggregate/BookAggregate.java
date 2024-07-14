@@ -35,6 +35,7 @@ public class BookAggregate {
     private String createdDate;
     private String lastModified;
     private byte[] imageData;
+    private String imageName;
 
     public BookAggregate() {}
 
@@ -81,6 +82,7 @@ public class BookAggregate {
         this.createdDate = event.getCreatedDate();
         this.lastModified = event.getLastModified();
         this.imageData = event.getImageData();
+        this.imageName = event.getImageName();
     }
 
     @EventSourcingHandler
@@ -102,6 +104,7 @@ public class BookAggregate {
         this.createdDate = event.getCreatedDate();
         this.lastModified = event.getLastModified();
         this.imageData = event.getImageData();
+        this.imageName = event.getImageName();
     }
 
     @EventSourcingHandler

@@ -35,6 +35,7 @@ public class UserAggregate {
     private String avatar;
     private int activeStatus;
     private byte[] imageData;
+    private String imageName;
 
     public UserAggregate() {}
 
@@ -57,7 +58,7 @@ public class UserAggregate {
     @CommandHandler
     public UserAggregate(DeleteUserCommand command) {
 
-        UserUpdatedEvent event = new UserUpdatedEvent();
+        UserDeletedEvent event = new UserDeletedEvent();
         BeanUtils.copyProperties(command, event);
         AggregateLifecycle.apply(event);
     }
@@ -101,6 +102,7 @@ public class UserAggregate {
         this.avatar = event.getAvatar();
         this.activeStatus = event.getActiveStatus();
         this.imageData = event.getImageData();
+        this.imageName = event.getImageName();
     }
 
     @EventSourcingHandler

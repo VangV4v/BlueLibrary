@@ -59,7 +59,9 @@ public class BookCommandServiceImpl implements BookCommandService {
         if(!ObjectUtils.isEmpty(requestModel.getImageData())) {
 
             try {
+
                 command.setImageData(requestModel.getImageData().getBytes());
+                command.setImageName(requestModel.getImageData().getOriginalFilename());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

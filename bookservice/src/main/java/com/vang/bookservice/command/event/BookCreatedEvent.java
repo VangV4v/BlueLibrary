@@ -21,4 +21,5 @@ public class BookCreatedEvent {
     private String createdDate;
     private String lastModified;
     private byte[] imageData;
+    private String imageName;
 }

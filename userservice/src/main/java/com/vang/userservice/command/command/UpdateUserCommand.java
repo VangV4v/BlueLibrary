@@ -22,5 +22,7 @@ public class UpdateUserCommand {
     private String role;
     private String avatar;
     private int activeStatus;
+    private int countOfExpired;
     private byte[] imageData;
+    private String imageName;
 }

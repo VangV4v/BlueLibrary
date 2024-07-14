@@ -19,10 +19,10 @@ public class ImageServiceGrpcClientImpl {
         this.deleteImageBlockingStub = deleteImageBlockingStub;
     }
 
-    public String uploadImage(byte[] image, int type) throws IOException {
+    public String uploadImage(byte[] image, int type, String name) throws IOException {
 
         ByteString bytes = ByteString.copyFrom(image);
-        UploadImageReply reply = uploadImageBlockingStub.upload(UploadImageRequest.newBuilder().setImage(bytes).setType(1).build());
+        UploadImageReply reply = uploadImageBlockingStub.upload(UploadImageRequest.newBuilder().setImage(bytes).setName(name).setType(1).build());
         if(reply.getStatus()) {
 
             return reply.getUrl();

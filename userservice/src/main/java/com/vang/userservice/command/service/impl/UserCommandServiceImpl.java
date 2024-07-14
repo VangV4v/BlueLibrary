@@ -69,6 +69,7 @@ public class UserCommandServiceImpl implements UserCommandService {
         command.setAvatar(ServiceCommon.DEFAULT_IMAGE);
         command.setRole(ServiceCommon.ROLE_USER);
         command.setPassword(passwordEncoder.encode(requestModel.getPassword()));
+        command.setCountOfExpired(ServiceCommon.ZERO);
         commandGateway.sendAndWait(command);
         ResponseCommon response = ResponseCommon.builder().error(false).message(ServiceCommon.ADD_USER_SUCCESS).build();
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -104,6 +105,7 @@ public class UserCommandServiceImpl implements UserCommandService {
         if(!ObjectUtils.isEmpty(requestModel.getImage())) {
 
             try {
+                command.setImageName(requestModel.getImage().getOriginalFilename());
                 command.setImageData(requestModel.getImage().getBytes());
             } catch (IOException e) {
                 throw new RuntimeException(e);

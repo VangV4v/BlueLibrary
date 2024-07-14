@@ -17,10 +17,10 @@ public class ImageGrpcClientImpl {
         this.deleteImageBlockingStub = deleteImageBlockingStub;
     }
 
-    public String uploadImage(byte[] image) {
+    public String uploadImage(byte[] image, String name) {
 
         ByteString bytes = ByteString.copyFrom(image);
-        UploadImageReply reply = uploadImageBlockingStub.upload(UploadImageRequest.newBuilder().setType(3).setImage(bytes).build());
+        UploadImageReply reply = uploadImageBlockingStub.upload(UploadImageRequest.newBuilder().setType(3).setName(name).setImage(bytes).build());
         return reply.getUrl();
     }
 

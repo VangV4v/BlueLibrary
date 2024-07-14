@@ -30,7 +30,7 @@ public class BookEventsHandler {
         Books books = new Books();
         BeanUtils.copyProperties(event, books);
         bookRepository.save(books);
-        String urlImage = uploadImage(event.getImageData());
+        String urlImage = uploadImage(event.getImageData(), event.getImageName());
         books.setImage(urlImage);
         bookRepository.save(books);
     }
@@ -43,7 +43,7 @@ public class BookEventsHandler {
         bookRepository.save(books);
         if(!ObjectUtils.isEmpty(event.getImageData()) && !StringUtils.isEmpty(event.getImage())) {
 
-           String urlImage = imageClient.uploadImage(event.getImageData());
+           String urlImage = imageClient.uploadImage(event.getImageData(), event.getImageName());
            books.setImage(urlImage);
            bookRepository.save(books);
            deleteImage(event.getImage());
@@ -62,9 +62,9 @@ public class BookEventsHandler {
         imageClient.deleteImage(image);
     }
 
-    private String uploadImage(byte[] image) {
+    private String uploadImage(byte[] image, String imageName) {
 
-        return imageClient.uploadImage(image);
+        return imageClient.uploadImage(image, imageName);
     }
 
     private String generateId() {

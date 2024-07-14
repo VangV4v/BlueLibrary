@@ -42,7 +42,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         String[] noRole = {"/api/v1/auth/employee/", "/api/v1/auth/user/", "/api/v1/auth/admin/"};
-        String[] roleEmployee = {"/api/v1/types/", "/api/v1/publishers/", "/api/v1/authors/", "/api/v1/users/"};
+        String[] roleEmployee = {"/api/v1/types/", "/api/v1/publishers/", "/api/v1/authors/", "/api/v1/users/", "/api/v1/books/"};
         String[] roleUser = {"/api/v1/users/"};
         String[] roleAdmin = {"/api/v1/admin/", "/api/v1/users/", "/api/v1/employees/"};
         http.csrf(CsrfConfigurer::disable);

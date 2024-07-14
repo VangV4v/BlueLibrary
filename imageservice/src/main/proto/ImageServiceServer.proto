@@ -15,6 +15,7 @@ service DeleteImage {
 message UploadImageRequest {
   int32 type = 1;
   bytes image = 2;
+  string name = 3;
 }
 
 message UploadImageReply {

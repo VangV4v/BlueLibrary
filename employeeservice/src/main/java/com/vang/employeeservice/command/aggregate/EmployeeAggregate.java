@@ -34,6 +34,8 @@ public class EmployeeAggregate {
     private String avatar;
     private int activeStatus;
     private byte[] image;
+    private String imageName;
+
     public EmployeeAggregate() {}
 
     @CommandHandler
@@ -97,6 +99,7 @@ public class EmployeeAggregate {
         this.avatar = event.getAvatar();
         this.activeStatus = event.getActiveStatus();
         this.image = event.getImage();
+        this.imageName = event.getImageName();
     }
 
     @EventSourcingHandler

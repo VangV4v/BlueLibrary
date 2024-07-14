@@ -21,5 +21,6 @@ public class CreateUserCommand {
     private String lastModified;
     private String role;
     private String avatar;
+    private int countOfExpired;
     private int activeStatus;
 }

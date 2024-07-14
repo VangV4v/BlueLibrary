@@ -4,12 +4,12 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.vang.imageservice.common.ServiceCommon;
+import com.vang.imageservice.grpc.gen.UploadImageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.Random;
 
 @Service
 public class UploadImageService {
@@ -21,11 +21,11 @@ public class UploadImageService {
         this.amazonS3 = amazonS3;
     }
 
-    public String uploadImage(byte[] bytes, int type) {
+    public String uploadImage(UploadImageRequest request) {
 
         String url;
-        String imageName = getBaseUrl(type)+ "/" +System.currentTimeMillis()+(new Random().nextInt(100,1000))+ServiceCommon.END_JPG;
-        InputStream inputStream = new ByteArrayInputStream(bytes);
+        String imageName = getBaseUrl(request.getType())+ "/" +System.currentTimeMillis()+request.getName().replace(" ", "_");
+        InputStream inputStream = new ByteArrayInputStream(request.getImage().toByteArray());
         PutObjectRequest objectRequest = new PutObjectRequest(ServiceCommon.BUDGET_NAME, imageName, inputStream, null).withCannedAcl(CannedAccessControlList.PublicRead);
         amazonS3.putObject(objectRequest);
             url = ServiceCommon.PRE_URL_IMAGE+imageName;

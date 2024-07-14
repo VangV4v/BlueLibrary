@@ -38,6 +38,8 @@ public class Users {
     private String role;
     @Column(name = "Avatar")
     private String avatar;
+    @Column(name = "CountOfExpired")
+    private int countOfExpired;
     @Column(name = "ActiveStatus")
     private int activeStatus;
 }

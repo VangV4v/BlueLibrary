@@ -21,6 +21,8 @@ public class UserUpdatedEvent {
     private String lastModified;
     private String role;
     private String avatar;
+    private int countOfExpired;
     private int activeStatus;
     private byte[] imageData;
+    private String imageName;
 }

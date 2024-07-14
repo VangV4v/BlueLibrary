@@ -47,7 +47,7 @@ public class UserEventsHandler {
         userRepository.save(users);
         if(!ObjectUtils.isEmpty(event.getAvatar())) {
 
-            String urlImage = imageGrpcClient.uploadImage(event.getImageData());
+            String urlImage = imageGrpcClient.uploadImage(event.getImageData(), event.getImageName());
             users.setAvatar(urlImage);
             userRepository.save(users);
             if(!event.getAvatar().equals(ServiceCommon.DEFAULT_IMAGE)) {

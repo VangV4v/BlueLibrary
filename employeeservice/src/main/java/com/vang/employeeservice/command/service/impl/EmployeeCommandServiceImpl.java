@@ -90,6 +90,7 @@ public class EmployeeCommandServiceImpl implements EmployeeCommandService {
         if(!ObjectUtils.isEmpty(requestModel.getImage())) {
 
             try {
+                command.setImageName(requestModel.getImage().getOriginalFilename());
                 command.setImage(requestModel.getImage().getBytes());
             } catch (IOException e) {
                 throw new RuntimeException(e);

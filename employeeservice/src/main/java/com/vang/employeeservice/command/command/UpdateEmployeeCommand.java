@@ -22,4 +22,5 @@ public class UpdateEmployeeCommand {
     private String avatar;
     private int activeStatus;
     private byte[] image = null;
+    private String imageName;
 }
