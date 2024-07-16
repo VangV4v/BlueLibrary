@@ -8,6 +8,10 @@ service GetPublisherById {
   rpc getData(GetPublisherByIdRequest) returns (GetPublisherByIdReply);
 }
 
+service UpdateCountPublisher {
+  rpc updateCount(UpdateCountPublisherRequest) returns (UpdateCountPublisherReply);
+}
+
 message GetPublisherByIdRequest {
   string publisherId = 1;
 }
@@ -15,4 +19,12 @@ message GetPublisherByIdRequest {
 message GetPublisherByIdReply {
   bool status = 1;
   string responseJson = 2;
+}
+
+message UpdateCountPublisherRequest {
+  string publisherId = 1;
+}
+
+message UpdateCountPublisherReply {
+  bool status = 1;
 }

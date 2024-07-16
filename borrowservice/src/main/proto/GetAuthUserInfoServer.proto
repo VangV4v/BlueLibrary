@@ -1,0 +1,18 @@
+syntax = "proto3";
+package com.vang;
+option java_package = "com.vang.borrowservice.grpc.gen";
+option java_multiple_files = true;
+option java_outer_classname = "GetAuthUserGrpcClient";
+
+service GetAuthUser {
+  rpc getAutInfo(GetAuthUserRequest) returns (GetAuthUserReply);
+}
+
+message GetAuthUserRequest {
+  int32 number = 1;
+}
+
+message GetAuthUserReply {
+  bool status = 1;
+  string username = 2;
+}

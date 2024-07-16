@@ -1,0 +1,18 @@
+syntax = "proto3";
+package com.vang;
+option java_package = "com.vang.borrowservice.grpc.gen";
+option java_multiple_files = true;
+option java_outer_classname = "UserGrpcClient";
+
+service GetUserByUsername {
+  rpc getUserData(GetUserByUsernameRequest) returns (GetUserByUsernameReply);
+}
+
+message GetUserByUsernameRequest {
+  string username = 1;
+}
+
+message GetUserByUsernameReply {
+  bool status = 1;
+  string responseJson = 2;
+}

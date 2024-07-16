@@ -8,6 +8,10 @@ service GetTypeById {
   rpc getData(GetTypeByIdRequest) returns (GetTypeByIdReply);
 }
 
+service UpdateCountType {
+  rpc updateCount(UpdateCountTypeRequest) returns (UpdateCountTypeReply);
+}
+
 message GetTypeByIdRequest {
   string typeId = 1;
 }
@@ -15,4 +19,12 @@ message GetTypeByIdRequest {
 message GetTypeByIdReply {
   bool status = 1;
   string responseJson = 2;
+}
+
+message UpdateCountTypeRequest {
+  string typeId = 1;
+}
+
+message UpdateCountTypeReply {
+  bool status = 1;
 }

@@ -1,0 +1,18 @@
+syntax = "proto3";
+package com.vang;
+option java_multiple_files = true;
+option java_package = "com.vang.bookservice.grpc.gen";
+option java_outer_classname = "BookGrpcServer";
+
+service GetBookByID {
+  rpc getBookData(GetBookByIDRequest) returns(GetBookByIDReply);
+}
+
+message GetBookByIDRequest {
+  string bookId = 1;
+}
+
+message GetBookByIDReply {
+  bool status = 1;
+  string jsonResponse = 2;
+}

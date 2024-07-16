@@ -8,6 +8,10 @@ service AuthenticateUser {
   rpc login(AuthenticateUserRequest) returns (AuthenticateUserReply);
 }
 
+service GetUserByUsername {
+  rpc getUserData(GetUserByUsernameRequest) returns (GetUserByUsernameReply);
+}
+
 message AuthenticateUserRequest {
   string username = 1;
 }
@@ -15,4 +19,13 @@ message AuthenticateUserRequest {
 message AuthenticateUserReply {
   bool status = 1;
   string password = 2;
+}
+
+message GetUserByUsernameRequest {
+  string username = 1;
+}
+
+message GetUserByUsernameReply {
+  bool status = 1;
+  string responseJson = 2;
 }
