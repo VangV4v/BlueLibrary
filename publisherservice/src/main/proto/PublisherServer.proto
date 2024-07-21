@@ -23,6 +23,7 @@ message GetPublisherByIdReply {
 
 message UpdateCountPublisherRequest {
   string publisherId = 1;
+  int32 typeUpdate = 2;
 }
 
 message UpdateCountPublisherReply {

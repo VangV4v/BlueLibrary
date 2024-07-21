@@ -23,6 +23,7 @@ message GetTypeByIdReply {
 
 message UpdateCountTypeRequest {
   string typeId = 1;
+  int32 typeUpdate = 2;
 }
 
 message UpdateCountTypeReply {

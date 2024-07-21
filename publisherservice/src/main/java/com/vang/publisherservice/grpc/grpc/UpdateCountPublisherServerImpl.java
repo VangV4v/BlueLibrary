@@ -23,9 +23,16 @@ public class UpdateCountPublisherServerImpl extends UpdateCountPublisherGrpc.Upd
     @Override
     public void updateCount(UpdateCountPublisherRequest request, StreamObserver<UpdateCountPublisherReply> responseObserver) {
 
-        int rowUpdated = publisherRepository.updateByPublisherId(request.getPublisherId());
         UpdateCountPublisherReply reply;
-        if(rowUpdated > 0) {
+        int statusResponse = 0;
+        if(request.getTypeUpdate() == 1) {
+
+            statusResponse = publisherRepository.updateIncrementByPublisherId(request.getPublisherId());
+        } else if(request.getTypeUpdate() == 2) {
+
+            statusResponse = publisherRepository.updateDecrementByPublisherId(request.getPublisherId());
+        }
+        if(statusResponse > 0) {
 
             reply = UpdateCountPublisherReply.newBuilder().setStatus(true).build();
         } else {

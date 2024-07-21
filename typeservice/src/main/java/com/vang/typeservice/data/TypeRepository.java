@@ -11,5 +11,9 @@ public interface TypeRepository extends JpaRepository<Types, String> {
 
     @Modifying
     @Query(value = "update Types set CountOfBook = CountOfBook + 1 where TypeId = ?1", nativeQuery = true)
-    int updateByTypeId(String typeId);
+    int updateIncrementByTypeId(String typeId);
+
+    @Modifying
+    @Query(value = "update Types set CountOfBook = CountOfBook - 1 where TypeId = ?1", nativeQuery = true)
+    int updateDecrementByTypeId(String typeId);
 }

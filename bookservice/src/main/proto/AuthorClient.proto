@@ -8,6 +8,10 @@ service GetAuthorById {
   rpc getData(GetAuthorByIdRequest) returns (GetAuthorByIdReply);
 }
 
+service UpdateCountAuthor {
+  rpc updateCount(UpdateCountAuthorRequest) returns(UpdateCountAuthorReply);
+}
+
 message GetAuthorByIdRequest {
   string authorId = 1;
 }
@@ -15,4 +19,13 @@ message GetAuthorByIdRequest {
 message GetAuthorByIdReply {
   bool status = 1;
   string responseJson = 2;
+}
+
+message UpdateCountAuthorRequest {
+  string authorId = 1;
+  int32 typeUpdate = 2;
+}
+
+message UpdateCountAuthorReply {
+  bool status = 1;
 }

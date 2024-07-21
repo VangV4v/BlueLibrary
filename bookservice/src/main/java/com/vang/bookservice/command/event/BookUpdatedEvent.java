@@ -2,6 +2,8 @@ package com.vang.bookservice.command.event;
 
 import lombok.Data;
 
+import java.util.Map;
+
 @Data
 public class BookUpdatedEvent {
 
@@ -22,4 +24,7 @@ public class BookUpdatedEvent {
     private String lastModified;
     private byte[] imageData;
     private String imageName;
+    private String hdnAuthorId;
+    private String hdnTypeId;
+    private String hdnPublisherId;
 }

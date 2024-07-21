@@ -23,9 +23,16 @@ public class UpdateCountTypeServerImpl extends UpdateCountTypeGrpc.UpdateCountTy
     @Override
     public void updateCount(UpdateCountTypeRequest request, StreamObserver<UpdateCountTypeReply> responseObserver) {
 
-        int rowUpdated = typeRepository.updateByTypeId(request.getTypeId());
         UpdateCountTypeReply reply;
-        if(rowUpdated > 0) {
+        int statusResponse = 0;
+        if(request.getTypeUpdate() == 1) {
+
+            statusResponse = typeRepository.updateIncrementByTypeId(request.getTypeId());
+        } else if(request.getTypeUpdate() == 2) {
+
+            statusResponse = typeRepository.updateDecrementByTypeId(request.getTypeId());
+        }
+        if(statusResponse > 0) {
 
             reply = UpdateCountTypeReply.newBuilder().setStatus(true).build();
         } else {

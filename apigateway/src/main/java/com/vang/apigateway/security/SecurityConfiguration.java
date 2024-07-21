@@ -44,7 +44,7 @@ public class SecurityConfiguration {
         String[] noRole = {"/api/v1/auth/employee/", "/api/v1/auth/user/", "/api/v1/auth/admin/"};
         String[] roleEmployee = {"/api/v1/types/", "/api/v1/publishers/", "/api/v1/authors/", "/api/v1/users/", "/api/v1/books/"};
         String[] roleUser = {"/api/v1/users/"};
-        String[] roleAdmin = {"/api/v1/admin/", "/api/v1/users/", "/api/v1/employees/"};
+        String[] roleAdmin = {"/api/v1/admin/", "/api/v1/users/", "/api/v1/employees/", "/api/v1/confirm-books/"};
         http.csrf(CsrfConfigurer::disable);
         http.cors(config ->
                 config.configurationSource(corsConfigurationSource())

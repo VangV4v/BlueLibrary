@@ -9,14 +9,18 @@ import com.vang.borrowservice.grpc.grpc.GetBookByIdGrpcClientImpl;
 import com.vang.borrowservice.grpc.grpc.GetUserByUsernameClientGrpcImpl;
 import com.vang.borrowservice.grpc.grpcmodel.UserJsonModel;
 import com.vang.borrowservice.model.BorrowRequestModel;
+import com.vang.borrowservice.model.BorrowResponseModel;
 import com.vang.borrowservice.service.BorrowService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class BorrowServiceImpl implements BorrowService {
@@ -55,6 +59,24 @@ public class BorrowServiceImpl implements BorrowService {
         requestModel.setConfirmStatus(0);
         borrowRepository.save(borrows);
         return null;
+    }
+
+    @Override
+    public ResponseEntity<List<BorrowResponseModel>> getBorrowByUserId() {
+
+        Gson gson = new Gson();
+        String username = getAuthUserGrpcClient.getAuthInfo();
+        String userResponse = getUserByUsernameClient.getUserByUsername(username);
+        UserJsonModel userJsonModel = gson.fromJson(userResponse, UserJsonModel.class);
+        List<Borrows> borrows = borrowRepository.findAllByUserid(userJsonModel.getUserId());
+        List<BorrowResponseModel> models = new ArrayList<>();
+        borrows.forEach(e -> {
+
+            BorrowResponseModel borrowResponseModel = new BorrowResponseModel();
+            BeanUtils.copyProperties(e, borrowResponseModel);
+            models.add(borrowResponseModel);
+        });
+        return new ResponseEntity<>(models, HttpStatus.OK);
     }
 
 }

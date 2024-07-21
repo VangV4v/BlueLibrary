@@ -3,7 +3,7 @@ spring:
     gateway:
       mvc:
         routes:
-          #Authenticate Service
+          #Authenticate-Service
           - id: AuthEmployeeService
             uri: http://192.168.160.1:8001
             predicates:
@@ -16,6 +16,11 @@ spring:
             uri: http://192.168.160.1:8003
             predicates:
               - Path=/api/v1/auth/admin/
+          #Confirm-Service
+          - id: ConfirmBookService
+            uri: http://192.168.160.1:9010
+            predicates:
+              - Path=/api/v1/confirm-books/
           #Service
           - id: TypeService
             uri: http://192.168.160.1:9001

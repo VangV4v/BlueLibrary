@@ -36,6 +36,9 @@ public class BookAggregate {
     private String lastModified;
     private byte[] imageData;
     private String imageName;
+    private String hdnAuthorId;
+    private String hdnTypeId;
+    private String hdnPublisherId;
 
     public BookAggregate() {}
 
@@ -105,6 +108,9 @@ public class BookAggregate {
         this.lastModified = event.getLastModified();
         this.imageData = event.getImageData();
         this.imageName = event.getImageName();
+        this.hdnAuthorId = event.getHdnAuthorId();
+        this.hdnTypeId = event.getHdnTypeId();
+        this.hdnPublisherId = event.getHdnPublisherId();
     }
 
     @EventSourcingHandler

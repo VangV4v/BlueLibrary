@@ -1,8 +1,8 @@
 package com.vang.authorservice.grpc.gprc;
 
-import com.vang.authorservice.UpdateCountPublisherGrpc;
-import com.vang.authorservice.UpdateCountPublisherReply;
-import com.vang.authorservice.UpdateCountPublisherRequest;
+import com.vang.authorservice.UpdateCountAuthorGrpc;
+import com.vang.authorservice.UpdateCountAuthorReply;
+import com.vang.authorservice.UpdateCountAuthorRequest;
 import com.vang.authorservice.data.AuthorRepository;
 import io.grpc.stub.StreamObserver;
 import jakarta.transaction.Transactional;
@@ -10,7 +10,7 @@ import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @GrpcService
-public class UpdateCountAuthorServerImpl extends UpdateCountPublisherGrpc.UpdateCountPublisherImplBase {
+public class UpdateCountAuthorServerImpl extends UpdateCountAuthorGrpc.UpdateCountAuthorImplBase {
 
     private final AuthorRepository authorRepository;
 
@@ -21,16 +21,23 @@ public class UpdateCountAuthorServerImpl extends UpdateCountPublisherGrpc.Update
 
     @Transactional
     @Override
-    public void updateCount(UpdateCountPublisherRequest request, StreamObserver<UpdateCountPublisherReply> responseObserver) {
+    public void updateCount(UpdateCountAuthorRequest request, StreamObserver<UpdateCountAuthorReply> responseObserver) {
 
-        int rowUpdated = authorRepository.updateByAuthorId(request.getAuthorId());
-        UpdateCountPublisherReply reply;
-        if(rowUpdated > 0) {
+        UpdateCountAuthorReply reply;
+        int statusResponse = 0;
+        if(request.getTypeUpdate() == 1) {
 
-            reply = UpdateCountPublisherReply.newBuilder().setStatus(true).build();
+            statusResponse = authorRepository.updateIncrementByAuthorId(request.getAuthorId());
+        } else if(request.getTypeUpdate() == 2) {
+
+            statusResponse = authorRepository.updateDecrementByAuthorId(request.getAuthorId());
+        }
+        if(statusResponse > 0) {
+
+            reply = UpdateCountAuthorReply.newBuilder().setStatus(true).build();
         } else {
 
-            reply = UpdateCountPublisherReply.newBuilder().setStatus(false).build();
+            reply = UpdateCountAuthorReply.newBuilder().setStatus(false).build();
         }
         responseObserver.onNext(reply);
         responseObserver.onCompleted();

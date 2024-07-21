@@ -3,6 +3,8 @@ package com.vang.bookservice.command.command;
 import lombok.Data;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
+import java.util.Map;
+
 @Data
 public class UpdateBookCommand {
 
@@ -24,4 +26,7 @@ public class UpdateBookCommand {
     private String lastModified;
     private byte[] imageData;
     private String imageName;
+    private String hdnAuthorId;
+    private String hdnTypeId;
+    private String hdnPublisherId;
 }

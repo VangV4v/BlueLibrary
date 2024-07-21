@@ -11,5 +11,9 @@ public interface PublisherRepository extends JpaRepository<Publishers, String> {
 
     @Modifying
     @Query(value = "update Publishers set CountOfBook = CountOfBook + 1 where PublisherId = ?1", nativeQuery = true)
-    int updateByPublisherId(String publisherId);
+    int updateIncrementByPublisherId(String publisherId);
+
+    @Modifying
+    @Query(value = "update Publishers set CountOfBook = CountOfBook - 1 where PublisherId = ?1", nativeQuery = true)
+    int updateDecrementByPublisherId(String publisherId);
 }

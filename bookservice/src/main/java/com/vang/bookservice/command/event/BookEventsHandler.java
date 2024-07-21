@@ -4,6 +4,9 @@ import com.vang.bookservice.common.ServiceCommon;
 import com.vang.bookservice.data.BookRepository;
 import com.vang.bookservice.data.Books;
 import com.vang.bookservice.grpc.grpc.ImageClientImpl;
+import com.vang.bookservice.grpc.grpc.UpdateCountAuthorClientImpl;
+import com.vang.bookservice.grpc.grpc.UpdateCountPublisherClientImpl;
+import com.vang.bookservice.grpc.grpc.UpdateCountTypeClientImpl;
 import org.apache.commons.lang.StringUtils;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.beans.BeanUtils;
@@ -16,11 +19,17 @@ public class BookEventsHandler {
 
     private final BookRepository bookRepository;
     private final ImageClientImpl imageClient;
+    private final UpdateCountTypeClientImpl updateCountTypeClient;
+    private final UpdateCountPublisherClientImpl updateCountPublisherClient;
+    private final UpdateCountAuthorClientImpl updateCountAuthorClient;
 
     @Autowired
-    public BookEventsHandler(BookRepository bookRepository, ImageClientImpl imageClient) {
+    public BookEventsHandler(BookRepository bookRepository, ImageClientImpl imageClient, UpdateCountTypeClientImpl updateCountTypeClient, UpdateCountPublisherClientImpl updateCountPublisherClient, UpdateCountAuthorClientImpl updateCountAuthorClient) {
         this.bookRepository = bookRepository;
         this.imageClient = imageClient;
+        this.updateCountTypeClient = updateCountTypeClient;
+        this.updateCountPublisherClient = updateCountPublisherClient;
+        this.updateCountAuthorClient = updateCountAuthorClient;
     }
 
     @EventHandler
@@ -30,6 +39,7 @@ public class BookEventsHandler {
         Books books = new Books();
         BeanUtils.copyProperties(event, books);
         bookRepository.save(books);
+        updateCountOfBookCreate(event);
         String urlImage = uploadImage(event.getImageData(), event.getImageName());
         books.setImage(urlImage);
         bookRepository.save(books);
@@ -41,6 +51,7 @@ public class BookEventsHandler {
         Books books = new Books();
         BeanUtils.copyProperties(event, books);
         bookRepository.save(books);
+        updateCountOfBookUpdate(event);
         if(!ObjectUtils.isEmpty(event.getImageData()) && !StringUtils.isEmpty(event.getImage())) {
 
            String urlImage = imageClient.uploadImage(event.getImageData(), event.getImageName());
@@ -55,6 +66,31 @@ public class BookEventsHandler {
 
         bookRepository.deleteById(event.getBookId());
         deleteImage(event.getImage());
+    }
+
+    private void updateCountOfBookCreate(BookCreatedEvent event) {
+
+        updateCountTypeClient.updateCountType(event.getTypeId(), 1);
+        updateCountPublisherClient.updateCountPublisher(event.getPublisherId(), 1);
+        updateCountAuthorClient.updateCountAuthor(event.getAuthorId(), 1);
+    }
+
+    private void updateCountOfBookUpdate(BookUpdatedEvent event) {
+
+        if(!event.getTypeId().equals(event.getHdnTypeId())) {
+
+            updateCountTypeClient.updateCountType(event.getTypeId(), 1);
+            updateCountTypeClient.updateCountType(event.getHdnTypeId(), 2);
+        }
+        if(!event.getPublisherId().equals(event.getHdnPublisherId())) {
+
+            updateCountPublisherClient.updateCountPublisher(event.getPublisherId(), 1);
+            updateCountPublisherClient.updateCountPublisher(event.getHdnPublisherId(), 2);
+        }
+        if(!event.getAuthorId().equals(event.getHdnAuthorId())) {
+            updateCountAuthorClient.updateCountAuthor(event.getAuthorId(), 1);
+            updateCountAuthorClient.updateCountAuthor(event.getHdnAuthorId(), 2);
+        }
     }
 
     private void deleteImage(String image) {

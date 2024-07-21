@@ -23,6 +23,13 @@ public class GrpcConfiguration {
     }
 
     @Bean
+    public UpdateCountAuthorGrpc.UpdateCountAuthorBlockingStub updateCountAuthorBlockingStub() {
+
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(IP, AUTHOR_PORT).usePlaintext().build();
+        return UpdateCountAuthorGrpc.newBlockingStub(channel);
+    }
+
+    @Bean
     public GetTypeByIdGrpc.GetTypeByIdBlockingStub getTypeByIdBlockingStub() {
 
         ManagedChannel channel = ManagedChannelBuilder.forAddress(IP, TYPE_PORT).usePlaintext().build();
@@ -30,10 +37,24 @@ public class GrpcConfiguration {
     }
 
     @Bean
+    public UpdateCountTypeGrpc.UpdateCountTypeBlockingStub updateCountTypeBlockingStub() {
+
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(IP, TYPE_PORT).usePlaintext().build();
+        return UpdateCountTypeGrpc.newBlockingStub(channel);
+    }
+
+    @Bean
     public GetPublisherByIdGrpc.GetPublisherByIdBlockingStub getPublisherByIdBlockingStub() {
 
         ManagedChannel channel = ManagedChannelBuilder.forAddress(IP, PUBLISHER_PORT).usePlaintext().build();
         return GetPublisherByIdGrpc.newBlockingStub(channel);
+    }
+
+    @Bean
+    public UpdateCountPublisherGrpc.UpdateCountPublisherBlockingStub updateCountPublisherBlockingStub() {
+
+        ManagedChannel channel = ManagedChannelBuilder.forAddress(IP, PUBLISHER_PORT).usePlaintext().build();
+        return UpdateCountPublisherGrpc.newBlockingStub(channel);
     }
 
     @Bean
