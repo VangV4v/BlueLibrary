@@ -1,8 +1,12 @@
 import React from 'react';
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import { authenticateEmployee } from '../../apps/slice/auth-slice';
+import { Flex, Image, Layout, Menu, theme, Typography } from 'antd';
+import { Button } from '@mui/material';
+import iconLogo from '../../assets/images/icons/icon-logo.png';
+import { Route, Routes } from 'react-router-dom';
+import HomePage from '../homepage/home-page';
+import LoginPage from '../login/login';
+import NotFound from '../notfound/404';
 const { Header, Content, Footer, Sider } = Layout;
 const items = [UserOutlined, VideoCameraOutlined, UploadOutlined, UserOutlined].map(
     (icon, index) => ({
@@ -15,32 +19,24 @@ const MainLayout = () => {
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
-    const dispatch = useDispatch();
-    const authResponse = useSelector(state => state.auth.authResponse);
-    const login = () => {
-
-        const data = {
-            "username": "vangemployee",
-            "password": "Vang123"
-        };
-
-        const action = authenticateEmployee(data);
-        dispatch(action);
-    };
     return (
         <Layout>
             <Sider
+                theme='light'
                 breakpoint="lg"
                 collapsedWidth="0"
                 onBreakpoint={(broken) => {
-                    console.log(broken);
                 }}
                 onCollapse={(collapsed, type) => {
-                    console.log(collapsed, type);
                 }}
             >
                 <div className="demo-logo-vertical" />
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
+                <Button>
+                    <Flex>
+                        <Image preview={false} width='75px' src={iconLogo} />
+                        <Typography.Title>LUE</Typography.Title>
+                    </Flex>
+                </Button>
             </Sider>
             <Layout>
                 <Header
@@ -62,8 +58,12 @@ const MainLayout = () => {
                             borderRadius: borderRadiusLG,
                         }}
                     >
-                        {authResponse.jwt}
-                        <button onClick={login}>Login</button>
+                        <Routes>
+                            <Route path='/' element={<HomePage />} />
+                            <Route path='/home' element={<HomePage />} />
+                            <Route path='/login' element={<LoginPage />} />
+                            <Route path='*' element={<NotFound />} />
+                        </Routes>
                     </div>
                 </Content>
                 <Footer

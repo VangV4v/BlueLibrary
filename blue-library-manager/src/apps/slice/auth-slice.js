@@ -13,7 +13,8 @@ const authSlice = createSlice({
 
     name: 'auth',
     initialState: {
-        authResponse: {
+        authResponse: JSON.parse(localStorage.getItem("authResponse"))
+            || {
             authenticated: false,
             expiration: '',
             jwt: '',
