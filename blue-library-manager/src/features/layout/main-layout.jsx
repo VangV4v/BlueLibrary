@@ -3,10 +3,15 @@ import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/i
 import { Flex, Image, Layout, Menu, theme, Typography } from 'antd';
 import { Button } from '@mui/material';
 import iconLogo from '../../assets/images/icons/icon-logo.png';
-import { Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import HomePage from '../homepage/home-page';
 import LoginPage from '../login/login';
 import NotFound from '../notfound/404';
+import MenuItem from 'antd/es/menu/MenuItem';
+import HomeIcon from '@mui/icons-material/Home';
+import CategoryIcon from '@mui/icons-material/Category';
+import PersonIcon from '@mui/icons-material/Person';
+import StoreIcon from '@mui/icons-material/Store';
 const { Header, Content, Footer, Sider } = Layout;
 const items = [UserOutlined, VideoCameraOutlined, UploadOutlined, UserOutlined].map(
     (icon, index) => ({
@@ -31,12 +36,46 @@ const MainLayout = () => {
                 }}
             >
                 <div className="demo-logo-vertical" />
-                <Button>
+                <Link to='/home'>
                     <Flex>
                         <Image preview={false} width='75px' src={iconLogo} />
                         <Typography.Title>LUE</Typography.Title>
                     </Flex>
-                </Button>
+                </Link>
+                <Menu>
+                    <MenuItem>
+                        <Link to='/home'>
+                            <Flex gap='middle' className='pdtc-p1'>
+                                <HomeIcon sx={{ color: '#7F82FF' }} fontSize='medium' />
+                                <Typography.Text className='text-menu'>Home</Typography.Text>
+                            </Flex>
+                        </Link>
+                    </MenuItem>
+                    <MenuItem>
+                        <Link to='/categories'>
+                            <Flex gap='middle' className='pdtc-p1'>
+                                <CategoryIcon sx={{ color: '#7F82FF' }} fontSize='medium' />
+                                <Typography.Text className='text-menu'>Categories</Typography.Text>
+                            </Flex>
+                        </Link>
+                    </MenuItem>
+                    <MenuItem>
+                        <Link to='/login'>
+                            <Flex gap='middle' className='pdtc-p1'>
+                                <PersonIcon sx={{ color: '#7F82FF' }} fontSize='medium' />
+                                <Typography.Text className='text-menu'>Authors</Typography.Text>
+                            </Flex>
+                        </Link>
+                    </MenuItem>
+                    <MenuItem>
+                        <Link to='/login'>
+                            <Flex gap='middle' className='pdtc-p1'>
+                                <StoreIcon sx={{ color: '#7F82FF' }} fontSize='medium' />
+                                <Typography.Text className='text-menu'>Publishers</Typography.Text>
+                            </Flex>
+                        </Link>
+                    </MenuItem>
+                </Menu>
             </Sider>
             <Layout>
                 <Header
