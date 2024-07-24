@@ -9,7 +9,8 @@ import { Button } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import { useDispatch } from 'react-redux';
 import { authenticateEmployee } from '../../apps/slice/auth-slice';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { changeAuthStatus } from '../../apps/slice/auth-status';
 
 const schema = yup
     .object({
@@ -40,11 +41,12 @@ function LoginPage() {
                 .then(response => {
 
                     localStorage.setItem("authResponse", JSON.stringify(response));
+                    dispatch(changeAuthStatus(true));
                     navigate("/home");
                 })
                 .catch(err => {
                     setShowLoading(false);
-                    console.log("CO LOI");
+                    console.log(err);
                 });
         }, 2000)
     };

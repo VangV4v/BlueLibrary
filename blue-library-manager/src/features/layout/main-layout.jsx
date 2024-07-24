@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Flex, Image, Layout, Menu, theme, Typography } from 'antd';
 import { Button } from '@mui/material';
@@ -12,18 +12,31 @@ import HomeIcon from '@mui/icons-material/Home';
 import CategoryIcon from '@mui/icons-material/Category';
 import PersonIcon from '@mui/icons-material/Person';
 import StoreIcon from '@mui/icons-material/Store';
+import { useSelector } from 'react-redux';
+import AuthPage from '../auth/auth-page';
+import MenuPage from '../menu-page/menu-page';
 const { Header, Content, Footer, Sider } = Layout;
-const items = [UserOutlined, VideoCameraOutlined, UploadOutlined, UserOutlined].map(
-    (icon, index) => ({
-        key: String(index + 1),
-        icon: React.createElement(icon),
-        label: `nav ${index + 1}`,
-    }),
-);
+
 const MainLayout = () => {
     const {
         token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
+    const [isAuthenticated, setAuthenticated] = useState(false);
+    const authReduxInfo = useSelector(state => state.auth.authResponse);
+    const statusAuthenticated = useSelector(state => state.authStatus.status);
+
+    useEffect(() => {
+
+        const expirationDate = new Date(authReduxInfo.expiration).getTime();
+        const currentDate = new Date().getTime();
+        if (authReduxInfo.authenticated && !(currentDate > expirationDate) && statusAuthenticated) {
+
+            setAuthenticated(true);
+        } else {
+
+            setAuthenticated(false);
+        }
+    }, [statusAuthenticated]);
     return (
         <Layout>
             <Sider
@@ -43,37 +56,9 @@ const MainLayout = () => {
                     </Flex>
                 </Link>
                 <Menu>
+                    <MenuPage isAuthenticated={isAuthenticated}></MenuPage>
                     <MenuItem>
-                        <Link to='/home'>
-                            <Flex gap='middle' className='pdtc-p1'>
-                                <HomeIcon sx={{ color: '#7F82FF' }} fontSize='medium' />
-                                <Typography.Text className='text-menu'>Home</Typography.Text>
-                            </Flex>
-                        </Link>
-                    </MenuItem>
-                    <MenuItem>
-                        <Link to='/categories'>
-                            <Flex gap='middle' className='pdtc-p1'>
-                                <CategoryIcon sx={{ color: '#7F82FF' }} fontSize='medium' />
-                                <Typography.Text className='text-menu'>Categories</Typography.Text>
-                            </Flex>
-                        </Link>
-                    </MenuItem>
-                    <MenuItem>
-                        <Link to='/login'>
-                            <Flex gap='middle' className='pdtc-p1'>
-                                <PersonIcon sx={{ color: '#7F82FF' }} fontSize='medium' />
-                                <Typography.Text className='text-menu'>Authors</Typography.Text>
-                            </Flex>
-                        </Link>
-                    </MenuItem>
-                    <MenuItem>
-                        <Link to='/login'>
-                            <Flex gap='middle' className='pdtc-p1'>
-                                <StoreIcon sx={{ color: '#7F82FF' }} fontSize='medium' />
-                                <Typography.Text className='text-menu'>Publishers</Typography.Text>
-                            </Flex>
-                        </Link>
+                        <AuthPage isAuthenticated={isAuthenticated}></AuthPage>
                     </MenuItem>
                 </Menu>
             </Sider>

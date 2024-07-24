@@ -16,7 +16,7 @@ const authSlice = createSlice({
         authResponse: JSON.parse(localStorage.getItem("authResponse"))
             || {
             authenticated: false,
-            expiration: '',
+            expiration: new Date().getTime(),
             jwt: '',
             role: ''
         }
