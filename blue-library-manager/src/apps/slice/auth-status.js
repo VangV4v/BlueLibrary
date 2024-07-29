@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import sessionStorage from "redux-persist/es/storage/session";
 
 const authStatusSlice = createSlice({
     name: 'authStatus',
     initialState: {
-        status: false
+        status: (sessionStorage.getItem("authStatus") && sessionStorage.getItem("authStatus")) || false
     },
     reducers: {
         changeAuthStatus: (state, action) => {

@@ -1,11 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-function HomePage(props) {
+function HomePage({ isAuthenticated }) {
     return (
-        <div>
-            Home
-        </div>
+        <>
+            {
+                isAuthenticated &&
+                <>
+                    Show
+                </>
+            }
+        </>
     );
 }
 

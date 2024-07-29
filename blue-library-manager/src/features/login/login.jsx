@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { authenticateEmployee } from '../../apps/slice/auth-slice';
 import { useNavigate } from 'react-router-dom';
 import { changeAuthStatus } from '../../apps/slice/auth-status';
+import sessionStorage from 'redux-persist/es/storage/session';
 
 const schema = yup
     .object({
@@ -40,7 +41,8 @@ function LoginPage() {
                 .unwrap()
                 .then(response => {
 
-                    localStorage.setItem("authResponse", JSON.stringify(response));
+                    sessionStorage.setItem("authResponse", JSON.stringify(response));
+                    sessionStorage.setItem("authStatus", true);
                     dispatch(changeAuthStatus(true));
                     navigate("/home");
                 })

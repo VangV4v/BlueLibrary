@@ -2,8 +2,7 @@ import React from 'react';
 import { Controller } from 'react-hook-form';
 import { TextField } from '@mui/material';
 
-function InputField({ label, name, control }) {
-
+function InputArea({ label, name, control, row }) {
     return (
         <Controller
 
@@ -16,12 +15,14 @@ function InputField({ label, name, control }) {
                     label={label}
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
-                    defaultValue={formState.defaultValues}
                     fullWidth
+                    multiline
+                    defaultValue={formState.defaultValues}
+                    rows={row}
                 />
             )}
         />
     );
 }
 
-export default InputField;
+export default InputArea;

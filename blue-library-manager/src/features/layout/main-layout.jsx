@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { UploadOutlined, UserOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Flex, Image, Layout, Menu, theme, Typography } from 'antd';
-import { Button } from '@mui/material';
 import iconLogo from '../../assets/images/icons/icon-logo.png';
 import { Link, Route, Routes } from 'react-router-dom';
 import HomePage from '../homepage/home-page';
 import LoginPage from '../login/login';
 import NotFound from '../notfound/404';
-import MenuItem from 'antd/es/menu/MenuItem';
-import HomeIcon from '@mui/icons-material/Home';
-import CategoryIcon from '@mui/icons-material/Category';
-import PersonIcon from '@mui/icons-material/Person';
-import StoreIcon from '@mui/icons-material/Store';
 import { useSelector } from 'react-redux';
 import AuthPage from '../auth/auth-page';
 import MenuPage from '../menu-page/menu-page';
-const { Header, Content, Footer, Sider } = Layout;
+import TypePage from '../types/type-page';
+import TypeAddPage from '../types/type-add';
+import HeaderPage from '../header/header-page';
+import TypeEditPage from '../types/type-edit';
+import AuthorPage from '../author/author-page';
+import AuthorAddPage from '../author/author-add';
+const { Content, Footer, Sider } = Layout;
 
 const MainLayout = () => {
     const {
@@ -24,29 +23,25 @@ const MainLayout = () => {
     const [isAuthenticated, setAuthenticated] = useState(false);
     const authReduxInfo = useSelector(state => state.auth.authResponse);
     const statusAuthenticated = useSelector(state => state.authStatus.status);
-
     useEffect(() => {
 
         const expirationDate = new Date(authReduxInfo.expiration).getTime();
         const currentDate = new Date().getTime();
-        if (authReduxInfo.authenticated && !(currentDate > expirationDate) && statusAuthenticated) {
+
+        if (authReduxInfo.authenticated && !(currentDate > expirationDate)) {
 
             setAuthenticated(true);
         } else {
 
             setAuthenticated(false);
         }
-    }, [statusAuthenticated]);
+    }, [authReduxInfo]);
     return (
         <Layout>
             <Sider
                 theme='light'
                 breakpoint="lg"
                 collapsedWidth="0"
-                onBreakpoint={(broken) => {
-                }}
-                onCollapse={(collapsed, type) => {
-                }}
             >
                 <div className="demo-logo-vertical" />
                 <Link to='/home'>
@@ -56,19 +51,14 @@ const MainLayout = () => {
                     </Flex>
                 </Link>
                 <Menu>
-                    <MenuPage isAuthenticated={isAuthenticated}></MenuPage>
-                    <MenuItem>
+                    <Flex vertical gap='small' align='flex-start'>
+                        <MenuPage isAuthenticated={isAuthenticated}></MenuPage>
                         <AuthPage isAuthenticated={isAuthenticated}></AuthPage>
-                    </MenuItem>
+                    </Flex>
                 </Menu>
             </Sider>
             <Layout>
-                <Header
-                    style={{
-                        padding: 0,
-                        background: colorBgContainer,
-                    }}
-                />
+                <HeaderPage colorBgContainer={colorBgContainer} />
                 <Content
                     style={{
                         margin: '24px 16px 0',
@@ -83,9 +73,14 @@ const MainLayout = () => {
                         }}
                     >
                         <Routes>
-                            <Route path='/' element={<HomePage />} />
-                            <Route path='/home' element={<HomePage />} />
+                            <Route path='/' element={<HomePage isAuthenticated={statusAuthenticated} />} />
+                            <Route path='/home' element={<HomePage isAuthenticated={statusAuthenticated} />} />
                             <Route path='/login' element={<LoginPage />} />
+                            <Route path='/types' element={<TypePage />} />
+                            <Route path='/types/type-add' element={<TypeAddPage />} />
+                            <Route path='/types/type-edit' element={<TypeEditPage />} />
+                            <Route path='/authors' element={<AuthorPage />} />
+                            <Route path='/authors/author-add' element={<AuthorAddPage />} />
                             <Route path='*' element={<NotFound />} />
                         </Routes>
                     </div>

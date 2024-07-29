@@ -2,20 +2,20 @@ import React from 'react';
 import { Controller } from 'react-hook-form';
 import { TextField } from '@mui/material';
 
-function InputField({ label, name, control }) {
+function HiddenField({ name, control }) {
 
     return (
         <Controller
 
             name={name}
             control={control}
-            render={({ field, fieldState, formState }) => (
+            render={({ field, formState }) => (
                 <TextField
 
-                    {...field}
-                    label={label}
-                    error={!!fieldState.error}
-                    helperText={fieldState.error?.message}
+                    sx={{
+                        display: 'none'
+                    }}
+                    type='hidden'
                     defaultValue={formState.defaultValues}
                     fullWidth
                 />
@@ -24,4 +24,4 @@ function InputField({ label, name, control }) {
     );
 }
 
-export default InputField;
+export default HiddenField;

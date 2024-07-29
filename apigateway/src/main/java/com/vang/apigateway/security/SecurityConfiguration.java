@@ -5,6 +5,7 @@ import com.vang.apigateway.jwt.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
@@ -52,6 +53,7 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests(auth -> {
 
             auth.requestMatchers(noRole).permitAll()
+                    .requestMatchers(HttpMethod.DELETE, "/api/v1/types/").permitAll()
                     .requestMatchers(roleEmployee).hasAnyRole(ServiceCommon.ROLE_EMPLOYEE, ServiceCommon.ROLE_ADMIN)
                     .requestMatchers(roleAdmin).hasRole(ServiceCommon.ROLE_ADMIN)
                     .anyRequest().denyAll();

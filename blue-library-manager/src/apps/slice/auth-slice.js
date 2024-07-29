@@ -13,7 +13,7 @@ const authSlice = createSlice({
 
     name: 'auth',
     initialState: {
-        authResponse: JSON.parse(localStorage.getItem("authResponse"))
+        authResponse: JSON.parse(sessionStorage.getItem("authResponse"))
             || {
             authenticated: false,
             expiration: new Date().getTime(),
@@ -21,7 +21,16 @@ const authSlice = createSlice({
             role: ''
         }
     },
-    reducers: {},
+    reducers: {
+        logoutEmployee: (state) => {
+            state.authResponse = {
+                authenticated: false,
+                expiration: new Date().getTime(),
+                jwt: '',
+                role: ''
+            }
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(authenticateEmployee.fulfilled, (state, action) => {
             state.authResponse = action.payload;
@@ -29,5 +38,6 @@ const authSlice = createSlice({
     }
 });
 
-const { reducer } = authSlice;
+const { reducer, actions } = authSlice;
+export const { logoutEmployee } = actions;
 export default reducer;
