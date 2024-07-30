@@ -6,12 +6,14 @@ import InputDatePicker from '../../components/input/input-datepicker/input-datep
 import SelectCountry from '../../components/select/select-country/select-country';
 import countryList from 'react-select-country-list'
 import { Button } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import PublishIcon from '@mui/icons-material/Publish';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import dayjs from 'dayjs';
 import authorAPI from '../../api/authors/author-api';
 import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import HiddenField from '../../components/input/input-hidden/input-hidden';
 
 const schema = yup.object({
     fullName: yup.string().required("FullName is not empty"),
@@ -19,14 +21,17 @@ const schema = yup.object({
     country: yup.string().required("Please select Country"),
 }).required();
 
-function AuthorAddPage() {
+function AuthorEditPage() {
     const [listCountries, setListCountries] = useState([]);
+    const location = useLocation();
     const token = useSelector(state => state.auth.authResponse.jwt);
     const form = useForm({
         defaultValues: {
-            fullName: "",
-            dateOfBirth: dayjs("2024-01-01", "YYYY-MM-DD"),
-            country: "Viet Nam"
+            fullName: location.state.fullName,
+            dateOfBirth: dayjs(location.state.dateOfBirth),
+            country: location.state.country,
+            countOfBook: location.state.countOfBook,
+            authorId: location.state.authorId
         },
         resolver: yupResolver(schema)
     });
@@ -35,10 +40,12 @@ function AuthorAddPage() {
         const param = {
             country: data.country,
             fullName: data.fullName,
+            authorId: data.authorId,
+            countOfBook: data.countOfBook,
             dateOfBirth: dayjs(data.dateOfBirth).format("YYYY-MM-DD")
         };
 
-        authorAPI.addAuthor(token, param)
+        authorAPI.updateAuthor(token, param)
             .then((response) => {
 
                 window.location.href = "/authors";
@@ -61,14 +68,16 @@ function AuthorAddPage() {
         <>
             <form onSubmit={form.handleSubmit(handleSubmit)}>
                 <Flex vertical gap="large">
+                    <HiddenField name="authorId" control={form.control} />
+                    <HiddenField name="countOfBook" control={form.control} />
                     <InputField label="Full Name" name="fullName" control={form.control} />
                     <InputDatePicker label="BirthDay" name="dateOfBirth" control={form.control} />
                     <SelectCountry label="Country" name="country" control={form.control} options={listCountries} />
-                    <Button type='submit' variant='contained' sx={{ width: '100px' }} endIcon={<AddIcon />}>ADD</Button>
+                    <Button type='submit' variant='contained' sx={{ width: '100px' }} endIcon={<PublishIcon />}>UPDATE</Button>
                 </Flex>
             </form>
         </>
     );
 }
 
-export default AuthorAddPage;
+export default AuthorEditPage;

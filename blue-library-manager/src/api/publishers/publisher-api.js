@@ -1,35 +1,35 @@
 import axiosClient from "../base/base-axios";
 
-const authorAPI = {
+const publisherAPI = {
 
-    findAllAuthors(token) {
+    findAllPublishers(token) {
 
-        return axiosClient.get("/api/v1/authors/", {
+        return axiosClient.get("/api/v1/publishers/", {
             headers: {
                 Authorization: "Bearer " + token
             }
         })
     },
-    addAuthor(token, param) {
+    addPublisher(token, data) {
 
-        return axiosClient.post("/api/v1/authors/", param, {
+        return axiosClient.post("/api/v1/publishers/", data, {
             headers: {
                 Authorization: "Bearer " + token
             }
         })
     },
-    updateAuthor(token, param) {
+    editPublisher(token, data) {
 
-        return axiosClient.put("/api/v1/authors/", param, {
+        return axiosClient.put("/api/v1/publishers/", data, {
             headers: {
                 Authorization: "Bearer " + token
             }
-        });
+        })
     },
-    deleteAuthor(token, param) {
+    deletePublisher(token, data) {
 
-        return axiosClient.delete("/api/v1/authors/", {
-            data: param,
+        return axiosClient.delete("/api/v1/publishers/", {
+            data: data,
             headers: {
                 Authorization: "Bearer " + token
             }
@@ -37,4 +37,4 @@ const authorAPI = {
     }
 };
 
-export default authorAPI;
+export default publisherAPI;

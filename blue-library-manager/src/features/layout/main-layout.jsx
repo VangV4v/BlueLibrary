@@ -14,6 +14,10 @@ import HeaderPage from '../header/header-page';
 import TypeEditPage from '../types/type-edit';
 import AuthorPage from '../author/author-page';
 import AuthorAddPage from '../author/author-add';
+import AuthorEditPage from '../author/author-edit';
+import PublisherPage from '../publishers/publisher-page';
+import PublisherAddPage from '../publishers/publisher-add';
+import PublisherEditPage from '../publishers/publisher-edit';
 const { Content, Footer, Sider } = Layout;
 
 const MainLayout = () => {
@@ -81,6 +85,10 @@ const MainLayout = () => {
                             <Route path='/types/type-edit' element={<TypeEditPage />} />
                             <Route path='/authors' element={<AuthorPage />} />
                             <Route path='/authors/author-add' element={<AuthorAddPage />} />
+                            <Route path='/authors/author-edit' element={<AuthorEditPage />} />
+                            <Route path='/publishers' element={<PublisherPage />} />
+                            <Route path='/publishers/publisher-add' element={<PublisherAddPage />} />
+                            <Route path='/publishers/publisher-edit' element={<PublisherEditPage />} />
                             <Route path='*' element={<NotFound />} />
                         </Routes>
                     </div>

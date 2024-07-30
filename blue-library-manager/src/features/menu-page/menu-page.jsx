@@ -30,7 +30,7 @@ function MenuPage({ isAuthenticated }) {
                             <Typography.Text className='text-menu'>Authors</Typography.Text>
                         </Flex>
                     </Button>
-                    <Button href='/types' type='text'>
+                    <Button href='/publishers' type='text'>
                         <Flex gap='middle' className='pdtc-p1'>
                             <StoreIcon sx={{ color: '#7F82FF' }} fontSize='medium' />
                             <Typography.Text className='text-menu'>Publishers</Typography.Text>
